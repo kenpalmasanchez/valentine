@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💘</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .hearts span {
+        position: absolute;
+        bottom: -50px;
+        font-size: 24px;
+        animation: floatUp 10s linear infinite;
+        opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+        from { transform: translateY(0); opacity: 0; }
+        20% { opacity: 1; }
+        to { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    .card {
+        position: relative;
+        background: rgba(255,255,255,0.25);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 40px 45px;
+        text-align: center;
+        box-shadow: 0 20px 40px rgba(0,0,0,.25);
+        width: 320px;
+        animation: pop 1s ease;
+    }
+
+    @keyframes pop {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+        margin: 0;
+        color: #ff2d55;
+    }
+
+    h2 {
+        color: #333;
+        margin: 15px 0 25px;
+        transition: all 0.3s ease;
+    }
+
+    button {
+        padding: 12px 28px;
+        font-size: 18px;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+        transition: 0.3s;
+    }
+
+    .yes {
+        background: linear-gradient(135deg, #ff2d55, #ff6a88);
+        color: white;
+        box-shadow: 0 8px 15px rgba(255,45,85,.4);
+    }
+
+    .yes:hover {
+        transform: scale(1.08);
+    }
+
+    .no {
+        background: #f1f1f1;
+        position: absolute;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="hearts"></div>
+
+<div class="card">
+    <h1>Hi Mahal 💕</h1>
+    <h2>Will you be my Valentine? 🌹</h2>
+
+    <button class="yes" onclick="yesClick()">Yes 💖</button>
+    <button class="no" id="noBtn">No 😢</button>
+</div>
+
+<script>
+    const noBtn = document.getElementById("noBtn");
+    const hearts = document.querySelector(".hearts");
+
+    // Array of texts for the No button
+    const noButtonTexts = [
+        "No? 😢",
+        "Sigurado ka? 🥺",
+        "Tunay na yan mame? 💔",
+        "Pag-isipan mo mame! 😭",
+        "Wagggggg! 😿",
+        "Blehhh Yes na! 😤",
+        "yes ka na kasi mame! 🙏",
+        "maling sagot mame! 😆",
+        "Yes na mame! 💕",
+        "dali na ganda",
+        "IIyak ako rito! 😢",
+        "Dali na isa! 💗",
+        "ay ayaw talaga! 😱",
+        "Impossible! 😵",
+        "Yes na yan mame! 💖",
+        "Tigil na mame yes na yan! 😤",
+        "dali na please 🤔",
+        "dali na mahal! ⚠️",
+        "Dali dali mahal! 💭",
+        "Ano na mameeeeee? 😬"
+    ];
+
+    let textIndex = 0;
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("touchstart", moveButton);
+
+    function moveButton(e) {
+        e.preventDefault();
+        const card = document.querySelector(".card");
+        const maxX = card.clientWidth - noBtn.offsetWidth;
+        const maxY = card.clientHeight - noBtn.offsetHeight;
+
+        const x = Math.random() * maxX;
+        const y = Math.random() * maxY;
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+
+        // Change the button text each time it moves
+        textIndex++;
+        if (textIndex >= noButtonTexts.length) {
+            textIndex = 1; // Loop back but skip the first text
+        }
+        noBtn.textContent = noButtonTexts[textIndex];
+    }
+
+    function yesClick() {
+        document.querySelector(".card").innerHTML =
+        "<h1>Hehe ikaw mame ha hihindi ka pa😍💘</h1><h2> I love you mahal ko yehey, hindi man sa 14 o kahit anong date basta matuloy tayo sa date natin ha pa kiss🥰🌹</h2>";
+        confetti();
+    }
+
+    function confetti() {
+        for(let i=0;i<30;i++){
+            let s = document.createElement("span");
+            s.innerHTML = ["💖","💘","💕","💗","🌹"][Math.floor(Math.random()*5)];
+            s.style.left = Math.random()*100 + "vw";
+            s.style.fontSize = (Math.random()*20+15) + "px";
+            s.style.animationDuration = (Math.random()*3+4) + "s";
+            hearts.appendChild(s);
+            setTimeout(()=>s.remove(),7000);
+        }
+    }
+</script>
+
+</body>
+</html>
